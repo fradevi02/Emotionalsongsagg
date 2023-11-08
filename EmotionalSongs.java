@@ -39,7 +39,7 @@ public class EmotionalSongs {
         textField1.setBounds(200, 20, 100, 20);
         frame.add(textField1);
 
-        JTextField textField2 = new JTextField(40);
+        JPasswordField textField2 = new JPasswordField(40);
         textField2.setBounds(200, 60, 100, 20);
         frame.add(textField2);
 
