@@ -216,7 +216,7 @@ public class clienteES implements ActionListener {
 
             RipetipwLabel = new JLabel("Ripeti password:");
 
-            indirizzoLabel = new JLabel("Indirizzo Fisico:");
+            indirizzoLabel = new JLabel("Indirizzo Fisic(via, n. civico, :");
 
             indirizzoField = new JTextField(20);
             indirizzoField.setCaretColor(Color.WHITE);
@@ -433,7 +433,7 @@ public class clienteES implements ActionListener {
             Utente utente = null;
 
             //manda messaggio di errore se email non valida
-            if(VerificaMail.isValidEmail(email) && ripetiPw.equals(password) && ControlloPw.isPasswordValid(password) && IndirizzoVerificatore.isIndirizzoValid(indirizzo)){
+            if(VerificaMail.isValidEmail(email) && ripetiPw.equals(password) && ControlloPw.isPasswordValid(password) && IndirizzoVerificatore.isIndirizzoValid(indirizzo) && CFvalidator.isValidCF(codiceFiscale)){
                 utente = new Utente(name, surname, codiceFiscale, date, indirizzo, email, username, password);
             }else if(!VerificaMail.isValidEmail(email)){
                 JOptionPane.showMessageDialog(frame, "Email non valida!");
@@ -450,6 +450,9 @@ public class clienteES implements ActionListener {
                                                 "• Devono essere presenti: via/piazza, numero civico, CAP, comune, provincia\n" +
                                                 "• Il CAP e il numero civico devono essere numerici \n" +
                                                 "• Il CAP deve essere composto da 5 numeri");
+            }else if(!CFvalidator.isValidCF(codiceFiscale)){
+                JOptionPane.showMessageDialog(frame, "Il codice fiscale:\n" +
+                        "deve rispettare il formato corretto");
             }
 
             boolean flag = false;
