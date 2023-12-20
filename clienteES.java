@@ -1,14 +1,14 @@
-package EmotionalSongs;/*
+/*
 Cermisoni Marco, MATRICOLA 748739, VA
 Oldani Marco, MATRICOLA 748243, VA
 De Vito Francesco, MATRICOLA 749044, VA
 Auteri Samuele, MATRICOLA 749710, VA
 */
+package EmotionalSongs;
 
 import Database.Database;
 import Database.InterfacciaDatabase;
 import Database.Query;
-
 
 import static EmotionalSongs.Brani.*;
 import static EmotionalSongs.Playlist.rimuoviDuplicati;
@@ -32,12 +32,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * Classe relativa all'interfaccia grafica; implementa l'interfaccia ActionListener, utilizzata per gestire gli eventi correlati alle azioni dell'utente su un componente dell'interfaccia grafica utente
+ * Class related to the graphical interface; implements the ActionListener interface, which is used to handle events related to user actions on a GUI component
  * @author De Vito Francesco
  * @author Auteri Samuele
+ * @author Cermisoni Marco
+ * @author Oldani Marco
  */
 public class clienteES implements ActionListener {
     Registry registry = LocateRegistry.getRegistry("127.0.0.1", 8999);
+
     InterfacciaDatabase databaseInterface = (InterfacciaDatabase)registry.lookup("SERVER");
 
     private int contatoreCanzoniSelezionate;
@@ -71,13 +74,16 @@ public class clienteES implements ActionListener {
     private JButton confermaEmozioni;
 
     private String branoEmozione;
+
     private JListUtility lista;
 
     private int numerout;
 
     /**
-     * Costruttore della classe EmotionalSongs.GUI che implementa l'interfaccia grafica
-     * @throws SQLException Rappresenta un'eccezione generata dall'API JDBC; quando si utilizza un database tramite JDBC, possono verificarsi diversi potenziali errori come ad esempio errori di connessione al database, errori nelle istruzioni SQL o problemi con il database stesso. Quando si verifica uno di questi errori, l'API JDBC genera un SQLException per indicare che si è verificato un errore.
+     * Constructor of the class clientES
+     * @throws SQLException Exception that occurs in Java when there's an error while working with a database using SQL (Structured Query Language) operations; SQL exceptions are typically thrown when there are issues such as: connection errors, syntax errors, constraint violations, data type mismatches, transaction issues, deadlocks and resource exhaustion.
+     * @throws RemoteException Exception that occurs in Java applications using the Remote Method Invocation (RMI) technology; this exception is thrown when issues arise during the invocation of remote methods through RMI; some of the situations that can cause a RemoteException include: connection issues, remote exceptions, class not found, timeouts, security issues and serialization issues.
+     * @throws NotBoundException Exception that occurs in the context of the Remote Method Invocation (RMI) technology; it is part of the java.rmi package and is thrown when a client tries to access or invoke a remote object that is not currently bound in the RMI registry.
      */
     public clienteES() throws SQLException, RemoteException, NotBoundException {
         try{
@@ -151,9 +157,8 @@ public class clienteES implements ActionListener {
         c.anchor = GridBagConstraints.LINE_END;
         buttonPanel.add(searchButton, c);
 
-
-        //creazione visualizza emozione button
-        //creazione emotion button
+        //Creazione visualizza emozione button
+        //Creazione emotion button
         emotionButton = new JButton("Visualizza voti emozioni brani");
         emotionButton.addActionListener(this);
         c.gridx = 3;
@@ -163,7 +168,6 @@ public class clienteES implements ActionListener {
         emotionButton.setBackground(new Color(70, 80, 120));
         emotionButton.setForeground(Color.WHITE);
         buttonPanel.add(emotionButton, c);
-
 
         numerout = databaseInterface.ContaUtenti();
         utentiIscrittiLabel = new JLabel("Utenti iscritti: " + numerout , SwingConstants.RIGHT);
@@ -180,8 +184,8 @@ public class clienteES implements ActionListener {
     }
 
     /**
-     * Metodo per la gestione degli eventi relativi ai bottoni
-     * @param e the event to be processed
+     * Method for handling button events
+     * @param e The event to be processed
      */
     public void actionPerformed(ActionEvent e) {
         //Bottone per l'apertura del pannello di registrazione
@@ -441,15 +445,15 @@ public class clienteES implements ActionListener {
                 JOptionPane.showMessageDialog(frame, "Le password non coincidono");
             }else if(!ControlloPw.isPasswordValid(password)){
                 JOptionPane.showMessageDialog(frame, "La password deve contenere almeno:\n" +
-                                                     "• 8 caratteri\n" +
-                                                     "• Una lettera maiuscola e una minuscola\n" +
-                                                     "• Un carattere speciale (!@#\\$%^&*())\n" +
-                                                     "• Un numero");
+                        "• 8 caratteri\n" +
+                        "• Una lettera maiuscola e una minuscola\n" +
+                        "• Un carattere speciale (!@#\\$%^&*())\n" +
+                        "• Un numero");
             }else if(!IndirizzoVerificatore.isIndirizzoValid(indirizzo)){
                 JOptionPane.showMessageDialog(frame, "Nell'indirizzo:\n" +
-                                                "• Devono essere presenti: via/piazza, numero civico, CAP, comune, provincia\n" +
-                                                "• Il CAP e il numero civico devono essere numerici \n" +
-                                                "• Il CAP deve essere composto da 5 numeri");
+                        "• Devono essere presenti: via/piazza, numero civico, CAP, comune, provincia\n" +
+                        "• Il CAP e il numero civico devono essere numerici \n" +
+                        "• Il CAP deve essere composto da 5 numeri");
             }else if(!CFvalidator.isValidCF(codiceFiscale)){
                 JOptionPane.showMessageDialog(frame, "Il codice fiscale:\n" +
                         "deve rispettare il formato corretto");
@@ -910,7 +914,7 @@ public class clienteES implements ActionListener {
             }
 
 
-    }else if(e.getSource()==logoutButton) {
+        }else if(e.getSource()==logoutButton) {
             utenteLoggato = null;
             JOptionPane.showMessageDialog(frame, "logout effettuato");
 
@@ -1493,7 +1497,7 @@ public class clienteES implements ActionListener {
             indietroPlaylist.setBackground(new Color(70, 80, 120));
             indietroPlaylist.setForeground(Color.WHITE);
             lista.add(indietroPlaylist);
-        frame.getContentPane().removeAll();
+            frame.getContentPane().removeAll();
             //Aggiungo la lista come panel al frame
             frame.getContentPane().add(lista);
             frame.revalidate();
@@ -2382,5 +2386,4 @@ public class clienteES implements ActionListener {
             }
         }
     }
-
 }
